@@ -4,7 +4,7 @@ const ExcelJS = require('exceljs');
 /* Cambia esto por la URL real una vez publiques el sitio (ver README).
    Debe apuntar al archivo HTML publicado, ej:
    https://tuusuario.github.io/invitaciones/invitacion-baby-shower-samuel_3.html */
-const BASE_URL = 'https://TU-DOMINIO-AQUI/invitacion-baby-shower-samuel_3.html';
+const BASE_URL = 'https://nicohenao17.github.io/invitacion-baby-shower-samuel/invitacion-baby-shower-samuel_3.html';
 
 async function main() {
   const inPath = 'plantilla-invitados.xlsx';
