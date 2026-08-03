@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Baby Shower · Samuel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#F8F2E9;
+    --cream-2:#FBF7F0;
+    --beige:#D9C3A0;
+    --beige-dark:#B99B6E;
+    --blue:#C7DDEF;
+    --blue-2:#AECBE6;
+    --blue-dark:#7FA8CB;
+    --blue-deep:#5F86A8;
+    --ink:#4B4842;
+    --ink-soft:#7A7468;
+    --gold:#C6A15B;
+    --white:#FFFFFF;
+    --shadow: 0 12px 30px rgba(75,72,66,0.10);
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color: transparent;}
+  html,body{margin:0;padding:0;}
+  body{
+    font-family:'Poppins', sans-serif;
+    background: linear-gradient(180deg, #EFE3D0 0%, #E9EEF3 100%);
+    color:var(--ink);
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+  }
+  #app{
+    width:100%;
+    max-width:480px;
+    min-height:100vh;
+    background: var(--cream);
+    position:relative;
+    overflow-x:hidden;
+    box-shadow: var(--shadow);
+  }
+  .script{ font-family:'Dancing Script', cursive; }
+  .serif{ font-family:'Playfair Display', serif; }
+  img{ max-width:100%; display:block; }
+
+  /* ---------- snowflake decorative border ---------- */
+  .grass-row{
+    display:flex; justify-content:center; align-items:center;
+    gap:17px; margin:0; padding:0 6px; overflow:hidden; height:52px;
+  }
+  .grass-row svg{ flex:none; }
+
+  /* ---------- COVER ---------- */
+  #cover{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:flex-start;
+    padding:36px 26px 30px;
+    text-align:center;
+    position:relative;
+    transition: opacity .6s ease, visibility .6s ease;
+  }
+  #cover.hidden{ opacity:0; visibility:hidden; position:absolute; inset:0; pointer-events:none; }
+
+  .invite-to{
+    letter-spacing:.22em; font-size:12px; color:var(--beige-dark);
+    text-transform:uppercase; margin-bottom:4px;
+  }
+  .baby-shower-title{
+    font-size:46px; line-height:1.05; color:var(--blue-dark); margin:0 0 14px;
+  }
+  .swing-row{
+    display:flex; align-items:center; justify-content:center;
+    margin: 6px 0 10px;
+  }
+  .swing-word{
+    font-size:34px; color:var(--blue-dark); line-height:1; white-space:nowrap;
+  }
+  .swing-word.left{ margin-right:-4px; }
+  .swing-word.right{ margin-left:-4px; }
+  .swing-wrap{ position:relative; width:150px; height:150px; flex:none; }
+  .cover-penguin{
+    position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+    width:140px; height:auto; z-index:2;
+    filter: drop-shadow(0 10px 18px rgba(120,140,160,0.28));
+  }
+  .cover-sub{
+    font-size:11.5px; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--ink-soft); margin-bottom:8px;
+  }
+  .baby-name-big{
+    font-family:'Playfair Display', serif; font-weight:700;
+    font-size:38px; letter-spacing:.03em; color:var(--ink);
+    margin-bottom:2px; text-transform:uppercase;
+  }
+  .baby-lastname{
+    font-family:'Dancing Script', cursive; font-size:22px; color:var(--beige-dark); margin-bottom:16px;
+  }
+  .cover-date-line{
+    display:flex; align-items:center; justify-content:center; gap:10px;
+    font-size:13px; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-soft);
+    margin-bottom:22px;
+  }
+  .cover-date-line b{ color:var(--blue-deep); font-weight:600; }
+  .cover-date-line .sep{ color:var(--beige-dark); }
+
+  .envelope-zone{
+    position:relative; display:flex; flex-direction:column; align-items:center;
+  }
+  .envelope{
+    width:220px; height:158px; position:relative; cursor:pointer;
+    margin-bottom:0; user-select:none;
+    animation: envelopeFloat 2.4s ease-in-out infinite;
+  }
+  @keyframes envelopeFloat{ 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-7px); } }
+  .envelope-glow{
+    position:absolute; left:50%; top:50%; width:250px; height:190px;
+    transform:translate(-50%,-50%); border-radius:50%;
+    background: radial-gradient(circle, rgba(127,168,203,.45) 0%, rgba(127,168,203,0) 70%);
+    animation: glowPulse 2.4s ease-in-out infinite; z-index:0;
+  }
+  @keyframes glowPulse{ 0%,100%{ opacity:.5; transform:translate(-50%,-50%) scale(.9); } 50%{ opacity:1; transform:translate(-50%,-50%) scale(1.08); } }
+  .envelope-body{
+    position:absolute; inset:0; background: var(--blue-2);
+    border-radius:6px; box-shadow: var(--shadow); overflow:hidden; z-index:1;
+  }
+  .envelope-flap{
+    position:absolute; top:0; left:0; right:0; height:100%;
+    background: var(--blue); clip-path: polygon(0 0, 100% 0, 50% 62%);
+    transform-origin: top center;
+    transition: transform .55s cubic-bezier(.6,-0.2,.4,1.3);
+    z-index:3;
+  }
+  .envelope.opening{ animation-play-state:paused; }
+  .envelope.opening .envelope-flap{ transform: rotateX(180deg); }
+  .envelope-seal{
+    position:absolute; left:50%; top:58%; transform:translate(-50%,-50%);
+    width:50px; height:50px; border-radius:50%;
+    background: radial-gradient(circle at 35% 30%, #DCEAF6, var(--blue-dark) 75%);
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 4px 10px rgba(0,0,0,.18); z-index:4;
+    transition: opacity .3s ease, transform .3s ease;
+  }
+  .envelope.opening .envelope-seal{ opacity:0; transform:translate(-50%,-50%) scale(.4); }
+  .envelope-seal svg{ width:22px; height:22px; }
+  .envelope-hint{
+    display:inline-flex; align-items:center; gap:8px;
+    margin-top:18px; padding:11px 22px;
+    background: linear-gradient(135deg, var(--blue-dark), var(--blue-deep));
+    color:#fff; border-radius:30px;
+    font-size:12.5px; font-weight:600; letter-spacing:.1em; text-transform:uppercase;
+    box-shadow:0 8px 18px rgba(127,168,203,.5);
+    animation: hintPulse 1.6s ease-in-out infinite;
+    position:relative; z-index:2;
+  }
+  .envelope-hint .tap-icon{ width:15px; height:15px; animation: tapBounce 1.2s ease-in-out infinite; }
+  @keyframes hintPulse{ 0%,100%{ transform:scale(1); } 50%{ transform:scale(1.055); } }
+  @keyframes tapBounce{ 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-3px); } }
+  .cover-grass{ margin-top:26px; width:100%; }
+
+  /* ---------- CONTENT ---------- */
+  #content{
+    opacity:0; visibility:hidden; pointer-events:none;
+    position:absolute; top:0; left:0; right:0;
+    transition: opacity .7s ease .15s, visibility 0s linear .7s;
+  }
+  #content.show{
+    opacity:1; visibility:visible; pointer-events:auto;
+    position:static;
+    transition: opacity .7s ease .15s;
+  }
+
+  section{ padding:54px 30px; text-align:center; position:relative; }
+  section + section{ border-top:1px solid rgba(185,155,110,0.18); }
+  section.flush{ padding-top:0; border-top:none; }
+
+  .eyebrow{ font-size:12px; letter-spacing:.2em; text-transform:uppercase; color:var(--beige-dark); margin-bottom:10px; }
+  h2.section-title{
+    font-family:'Dancing Script', cursive; font-weight:700; font-size:36px;
+    color:var(--blue-dark); margin:0 0 18px;
+  }
+  p.body-text{ font-size:15px; line-height:1.75; color:var(--ink-soft); margin:0 0 4px; }
+
+  /* --- baby word art --- */
+  #announcement{ padding-top:52px; }
+  .baby-word-row{
+    display:flex; align-items:center; justify-content:center; gap:6px; margin-bottom:26px;
+  }
+  .baby-half{
+    font-family:'Playfair Display', serif; font-weight:600; font-size:46px;
+    color:var(--blue-dark); letter-spacing:.03em;
+  }
+  .baby-word-row img.peng{ width:132px; margin:0 -2px; filter: drop-shadow(0 10px 14px rgba(120,140,160,.28)); }
+
+  .player{
+    display:flex; align-items:center; gap:12px; background: var(--white);
+    border:1px solid rgba(185,155,110,.3); border-radius:40px; padding:10px 18px;
+    margin:22px auto 24px; max-width:300px; box-shadow: var(--shadow);
+  }
+  .player button{
+    width:34px;height:34px;border-radius:50%;border:none; background:var(--blue-dark); color:#fff;
+    font-size:14px; display:flex;align-items:center;justify-content:center;cursor:pointer; flex:none;
+    outline:none;
+  }
+  .player button:focus-visible{ box-shadow:0 0 0 3px rgba(127,168,203,.45); }
+  .player .track{ flex:1; height:3px; background:rgba(120,140,160,.3); border-radius:3px; position:relative;}
+  .player .track i{ position:absolute; left:0; top:0; bottom:0; width:35%; background:var(--blue-dark); border-radius:3px;}
+  .player small{ color:var(--ink-soft); font-size:11px; white-space:nowrap;}
+
+  .parents-eyebrow{ font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-soft); margin:26px 0 4px; }
+  .parents-names{ font-family:'Dancing Script', cursive; font-weight:700; font-size:32px; color:var(--beige-dark); margin:0 0 8px; }
+
+  /* --- parents photo arch --- */
+  #photo{ padding-top:10px; }
+  .arch-photo{
+    width:220px; height:270px; margin:8px auto 6px;
+    border-radius: 50% 50% 0 0 / 62% 62% 0 0;
+    overflow:hidden; position:relative;
+    background: linear-gradient(160deg, var(--blue-2), var(--cream-2));
+    box-shadow: var(--shadow);
+    display:flex; align-items:flex-end; justify-content:center;
+  }
+  .arch-photo img{ width:78%; margin-bottom:0; filter: drop-shadow(0 8px 10px rgba(120,140,160,.2)); }
+
+  /* --- date block --- */
+  .date-row{ display:flex; align-items:center; justify-content:center; gap:18px; margin-top:8px; }
+  .date-col{ text-align:center; }
+  .date-col .big{ font-family:'Playfair Display', serif; font-size:42px; color:var(--blue-dark); line-height:1; }
+  .date-col .lbl{ font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-soft); margin-top:4px;}
+  .divider-line{ width:1px; height:44px; background:var(--beige-dark); opacity:.5; }
+
+  /* --- location --- */
+  .pin{ width:44px; height:44px; margin:4px auto 10px; }
+  .venue-photo{
+    position:relative; width:100%; border-radius:20px; overflow:hidden;
+    box-shadow: var(--shadow); border:1px solid rgba(185,155,110,.28);
+    margin:6px 0 22px;
+  }
+  .venue-photo img{ width:100%; display:block; }
+  .venue-name{ font-size:15px; font-weight:500; color:var(--ink); margin-bottom:6px; }
+  .btn{
+    display:inline-block; text-decoration:none; font-size:12.5px; letter-spacing:.08em;
+    text-transform:uppercase; padding:13px 30px; border-radius:30px;
+    box-shadow: var(--shadow); border:1px solid rgba(255,255,255,.4); cursor:pointer;
+    font-family:'Poppins', sans-serif; font-weight:500; color:#fff !important;
+    background: linear-gradient(135deg, var(--blue-dark), var(--blue-deep));
+  }
+  .btn.beige{ background: linear-gradient(135deg, var(--beige-dark), #A3855C); }
+  .btn.outline{ background:transparent; border:1.5px solid var(--blue-dark); color:var(--blue-dark) !important; box-shadow:none; }
+
+  /* --- countdown --- */
+  .countdown{
+    display:flex; justify-content:center; gap:10px; border:1px dashed var(--beige-dark);
+    border-radius:14px; padding:18px 8px; margin-top:6px;
+  }
+  .countdown .box{ min-width:54px; }
+  .countdown .num{ font-family:'Playfair Display', serif; font-size:26px; color:var(--beige-dark); font-weight:600; line-height:1; }
+  .countdown .lbl{ font-size:9.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-soft); margin-top:6px;}
+
+  /* --- gift / wishlist --- */
+  .blocks-wrap{ display:flex; align-items:flex-end; justify-content:center; gap:14px; margin:6px auto 22px; }
+  .gift-penguin{ width:78px; filter: drop-shadow(0 8px 10px rgba(120,140,160,.22)); }
+  .blocks{ display:flex; gap:5px; }
+  .block{
+    width:26px; height:26px; border-radius:6px; background:var(--cream-2);
+    border:1px solid rgba(185,155,110,.5); display:flex; align-items:center; justify-content:center;
+    font-family:'Playfair Display', serif; font-weight:700; font-size:13px; color:var(--blue-deep);
+    box-shadow:0 3px 6px rgba(0,0,0,.06);
+  }
+  .block:nth-child(even){ transform: translateY(-4px); color:var(--beige-dark); }
+  .gift-list{ display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin: 6px 0 24px; }
+  .gift-chip{
+    background:var(--cream-2); border:1px solid rgba(185,155,110,.4); color:var(--ink-soft);
+    font-size:12.5px; padding:8px 14px; border-radius:20px;
+  }
+
+  /* --- rsvp arch --- */
+  #rsvp{ padding:0; }
+  .rsvp-arch{
+    background: linear-gradient(165deg, var(--blue-dark), var(--blue-deep));
+    border-radius: 50% 50% 0 0 / 30% 30% 0 0;
+    padding:60px 32px 46px; color:#fff; margin-top:10px;
+  }
+  .rsvp-arch h2.section-title{ color:#fff; }
+  .rsvp-arch .body-text{ color:rgba(255,255,255,.88); }
+  .family-name{
+    font-family:'Playfair Display', serif; font-weight:600; font-size:21px; letter-spacing:.02em;
+    color:#fff; text-transform:uppercase; margin:0 0 4px;
+  }
+  .pass-badge{
+    display:inline-flex; align-items:center; justify-content:center; width:60px; height:60px; border-radius:50%;
+    background: rgba(255,255,255,.18); color:#fff; border:1.5px solid rgba(255,255,255,.55);
+    font-family:'Playfair Display', serif; font-size:24px; font-weight:600; margin:12px auto 4px;
+  }
+  .pass-caption{ font-size:13px; color:rgba(255,255,255,.85); margin-bottom:18px; }
+  .deadline-line{ font-size:13.5px; margin:16px 0 22px; color:#fff; }
+  .deadline-line b{ font-weight:600; }
+  .rsvp-arch .btn{ background:#fff; color:var(--blue-deep) !important; }
+
+  /* --- closing --- */
+  #closing{ padding-bottom:74px; padding-top:60px; }
+  .closing-card{
+    max-width:300px; margin:0 auto; position:relative;
+  }
+  .closing-seal{
+    width:56px; height:56px; border-radius:50%; margin:0 auto -28px; position:relative; z-index:2;
+    background: radial-gradient(circle at 35% 30%, #E7D2A9, var(--beige-dark) 75%);
+    display:flex; align-items:center; justify-content:center; box-shadow:0 4px 10px rgba(0,0,0,.15);
+  }
+  .closing-seal svg{ width:26px; height:26px; }
+  .closing-photo{
+    border-radius:18px; overflow:hidden; background: linear-gradient(160deg, var(--blue-2), var(--beige));
+    padding:40px 18px 24px; box-shadow: var(--shadow); display:flex; align-items:center; justify-content:center;
+  }
+  .closing-photo img{ width:56%; filter: drop-shadow(0 10px 14px rgba(75,72,66,.2)); }
+  .closing-thanks{ margin-top:22px; font-size:14px; line-height:1.7; color:var(--ink-soft); }
+  #closing .script{ font-size:30px; color:var(--blue-dark); margin-top:10px; display:block; }
+  .hashtag{ margin-top:12px; font-size:12.5px; color:var(--beige-dark); letter-spacing:.04em;}
+
+  .note{ font-size:11px; color:var(--ink-soft); opacity:.6; margin-top:10px; }
+</style>
+</head>
+<body>
+<div id="app">
+
+  <!-- ============ COVER ============ -->
+  <div id="cover">
+    <div class="invite-to">Te invitamos al</div>
+    <div class="swing-row">
+      <span class="swing-word left script">Baby</span>
+      <div class="swing-wrap">
+        <img class="cover-penguin" id="imgCover" src="assets/penguin.webp" alt="Pingüino">
+      </div>
+      <span class="swing-word right script">Shower</span>
+    </div>
+    <div class="cover-sub">La espera más bonita ya tiene nombre</div>
+    <div class="baby-name-big" id="coverBabyName">SAMUEL</div>
+    <div class="baby-lastname script" id="coverBabyLastname">Henao Carranza</div>
+    <div class="cover-date-line">
+      <span id="coverWeekday">DOMINGO</span><span class="sep">·</span><b id="coverDateShort">16 DE AGOSTO</b><span class="sep">·</span><span id="coverTime">3:00 PM</span>
+    </div>
+    <div class="envelope-zone">
+      <div class="envelope" id="envelope">
+        <div class="envelope-glow"></div>
+        <div class="envelope-body"></div>
+        <div class="envelope-flap"></div>
+        <div class="envelope-seal">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 21s-7.5-4.9-10-9.4C.4 8.1 2 4.5 5.6 4c2-.3 3.6.6 4.9 2.3C11.9 4.6 13.5 3.7 15.5 4c3.6.5 5.2 4.1 3.6 7.6C16.5 16.1 12 21 12 21z" fill="#fff"/></svg>
+        </div>
+      </div>
+      <div class="envelope-hint">
+        <svg class="tap-icon" viewBox="0 0 24 24" fill="none"><path d="M9 11.5V5.2a1.5 1.5 0 0 1 3 0V11m0 .3V3.7a1.5 1.5 0 0 1 3 0V11m0 .2V5.7a1.5 1.5 0 0 1 3 0v8.8m0-3c1 .1 2 .7 2 2.3 0 3.4-1.8 6.2-6 6.2-3.3 0-4.8-1-6.3-3L4 16.4c-.6-1-.3-2 .5-2.4.7-.4 1.5-.2 2.2.5l1.3 1.4" stroke="#fff" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Dale clic para ver la invitación
+      </div>
+    </div>
+    <div class="cover-grass" id="grassBottom"></div>
+  </div>
+
+  <!-- ============ CONTENT ============ -->
+  <div id="content">
+
+    <section id="announcement">
+      <div class="baby-word-row">
+        <span class="baby-half">BA</span>
+        <img class="peng" id="imgBalloon" src="assets/penguin.webp" alt="Pingüino con globos">
+        <span class="baby-half">BY</span>
+      </div>
+      <p class="body-text">Nuestro corazón late con más fuerza porque muy pronto conoceremos al milagro que Dios nos regaló.</p>
+      <p class="body-text">Con inmensa alegría queremos invitarte a celebrar la dulce espera de nuestro amado <b id="msgBabyName1">Samuel</b> y compartir con nosotros un momento lleno de amor, ilusión y felicidad.</p>
+
+      <div class="player">
+        <button id="playBtn" aria-label="Reproducir canción">►</button>
+        <div class="track"><i></i></div>
+        <small>Nuestra canción</small>
+      </div>
+      <audio id="bgAudio" loop preload="none" playsinline src="assets/song.mp3"></audio>
+
+      <p class="body-text">Con mucho amor estamos contando los días para tener en nuestros brazos a <span id="msgBabyName2">Samuel</span>.</p>
+      <div class="parents-eyebrow">Mis papitos</div>
+      <div class="parents-names">Nicolas &amp; Carol</div>
+    </section>
+
+    <section id="photo" class="flush">
+      <div class="arch-photo">
+        <img id="imgArch" src="assets/penguin.webp" alt="Pingüino">
+      </div>
+      <p class="body-text" style="margin-top:18px;">Antes de mi llegada, mis papitos quieren compartir contigo esta etapa tan especial y crear juntos un recuerdo inolvidable.</p>
+      <div class="grass-row" id="grassMid" style="margin-top:14px;"></div>
+    </section>
+
+    <section id="event">
+      <div class="date-row">
+        <div class="date-col"><div class="big" id="dNum">16</div><div class="lbl" id="dMonth">Agosto</div></div>
+        <div class="divider-line"></div>
+        <div class="date-col"><div class="big" style="font-size:20px;" id="dWeekday">Domingo</div><div class="lbl">2026</div></div>
+        <div class="divider-line"></div>
+        <div class="date-col"><div class="big" style="font-size:20px;" id="dTime">3:00 PM</div><div class="lbl">Hora *</div></div>
+      </div>
+      <p class="note">* Hora por confirmar — se actualizará aquí</p>
+    </section>
+
+    <section id="location">
+      <h2 class="section-title">Recepción</h2>
+      <div class="eyebrow" style="margin-bottom:6px;">Dirección del evento</div>
+      <div class="venue-name" id="addrText">Por confirmar</div>
+      <div class="venue-photo">
+        <img id="imgVenue" src="assets/venue.jpg" alt="Conjunto Granate">
+      </div>
+      <a class="btn beige" id="mapsBtn" href="#" target="_blank" rel="noopener">Ver mapa</a>
+    </section>
+
+    <section id="countdown">
+      <h2 class="section-title">Cuenta regresiva</h2>
+      <div class="countdown">
+        <div class="box"><div class="num" id="cd-d">00</div><div class="lbl">Días</div></div>
+        <div class="box"><div class="num" id="cd-h">00</div><div class="lbl">Horas</div></div>
+        <div class="box"><div class="num" id="cd-m">00</div><div class="lbl">Min</div></div>
+        <div class="box"><div class="num" id="cd-s">00</div><div class="lbl">Seg</div></div>
+      </div>
+    </section>
+
+    <section id="gift">
+      <h2 class="section-title">Lista de deseos</h2>
+      <div class="blocks-wrap">
+        <img class="gift-penguin" id="imgGift" src="assets/penguin.webp" alt="Pingüino">
+        <div class="blocks" id="nameBlocks"></div>
+      </div>
+      <p class="body-text">Tu presencia será el regalo más valioso. Pero si deseas tener un detalle especial con nuestra familia, aquí tienes algunas ideas de referencia.</p>
+      <div class="gift-list" id="giftList"></div>
+      <a class="btn outline" id="giftBtn" href="#" target="_blank" rel="noopener" style="display:none;">Ver lista completa</a>
+    </section>
+
+    <section id="rsvp">
+      <div class="rsvp-arch">
+        <h2 class="section-title">Confirmar asistencia</h2>
+        <p class="body-text">Para <span id="msgBabyName3">Samuel</span> y para nosotros como sus papitos, será muy especial contar contigo en este día.</p>
+        <div class="family-name" id="familyName">FAMILIA INVITADA</div>
+        <div class="pass-badge" id="passBadge">2</div>
+        <div class="pass-caption">Invitación válida por <span id="passText">2</span> pases</div>
+        <div class="deadline-line">Por favor confírmanos tu asistencia antes del <b id="rsvpDeadline">9 de agosto de 2026</b>.</div>
+        <a class="btn" id="rsvpBtn" href="#" target="_blank" rel="noopener">Confirmar aquí</a>
+      </div>
+    </section>
+
+    <section id="closing">
+      <div class="closing-card">
+        <div class="closing-seal">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 21s-7.5-4.9-10-9.4C.4 8.1 2 4.5 5.6 4c2-.3 3.6.6 4.9 2.3C11.9 4.6 13.5 3.7 15.5 4c3.6.5 5.2 4.1 3.6 7.6C16.5 16.1 12 21 12 21z" fill="#fff"/></svg>
+        </div>
+        <div class="closing-photo"><img id="imgClosing" src="assets/penguin.webp" alt="Pingüino"></div>
+        <div class="closing-thanks">Gracias por acompañarnos a celebrar esta dulce espera y por ser parte de esta etapa tan especial para nuestra familia.<br><br>¡Te esperamos para compartir juntos esta hermosa celebración en honor a <span id="msgBabyName4">Samuel</span>!</div>
+        <span class="script">¡Los esperamos!</span>
+        <div class="hashtag">Nicolas &amp; Carol · Baby Shower</div>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<script>
+
+/* ============================================================
+   CONFIGURACIÓN DEL EVENTO — edita aquí los datos fijos
+   ============================================================ */
+const CONFIG = {
+  babyName: "Samuel",
+  babyLastName: "Henao Carranza",
+  eventDateISO: "2026-08-16T15:00:00-05:00",
+  weekday: "Domingo",
+  weekdayShort: "DOMINGO",
+  monthName: "Agosto",
+  dateShort: "16 DE AGOSTO",
+  dayNumber: "16",
+  timeLabel: "3:00 PM",
+  address: "Conjunto Granate",
+  mapsLink: "https://maps.app.goo.gl/1wJRxneWj6WejTtU8?g_st=ic",
+  rsvpDeadline: "9 de agosto de 2026",
+  whatsappNumber: "",
+  giftSuggestions: ["Pañales talla RN", "Toallitas húmedas", "Body manga larga", "Mantas"],
+  giftRegistryLink: ""
+};
+
+/* Nombre del bebé en todos los textos */
+document.getElementById('coverBabyName').textContent = CONFIG.babyName.toUpperCase();
+document.getElementById('coverBabyLastname').textContent = CONFIG.babyLastName;
+['msgBabyName1','msgBabyName2','msgBabyName3','msgBabyName4'].forEach(id=>{
+  document.getElementById(id).textContent = CONFIG.babyName;
+});
+/* Bloques de madera con el nombre */
+const blocksWrap = document.getElementById('nameBlocks');
+CONFIG.babyName.toUpperCase().split('').forEach(letter=>{
+  const d = document.createElement('div');
+  d.className='block'; d.textContent = letter;
+  blocksWrap.appendChild(d);
+});
+
+/* Datos por familia via URL: ?familia=Perez&pases=4 */
+const params = new URLSearchParams(window.location.search);
+const familia = params.get('familia') || 'Familia Invitada';
+const pases = params.get('pases') || '2';
+document.getElementById('familyName').textContent = familia.toUpperCase();
+document.getElementById('passBadge').textContent = pases;
+document.getElementById('passText').textContent = pases;
+document.title = "Baby Shower de " + CONFIG.babyName + " · " + familia;
+
+/* Fecha */
+document.getElementById('coverWeekday').textContent = CONFIG.weekdayShort;
+document.getElementById('coverDateShort').textContent = CONFIG.dateShort;
+document.getElementById('coverTime').textContent = CONFIG.timeLabel;
+document.getElementById('addrText').textContent = CONFIG.address;
+document.getElementById('rsvpDeadline').textContent = CONFIG.rsvpDeadline;
+document.getElementById('dTime').textContent = CONFIG.timeLabel;
+
+/* Maps */
+const mapsBtn = document.getElementById('mapsBtn');
+if(CONFIG.mapsLink){ mapsBtn.href = CONFIG.mapsLink; }
+else { mapsBtn.href="#"; mapsBtn.addEventListener('click', e=>{ e.preventDefault(); alert('La ubicación se confirmará pronto.'); }); }
+
+/* RSVP -> WhatsApp */
+const rsvpBtn = document.getElementById('rsvpBtn');
+if(CONFIG.whatsappNumber){
+  const msg = encodeURIComponent(`¡Hola! Confirmo mi asistencia al Baby Shower de ${CONFIG.babyName}. Familia: ${familia} - Pases: ${pases}`);
+  rsvpBtn.href = `https://wa.me/${CONFIG.whatsappNumber}?text=${msg}`;
+} else {
+  rsvpBtn.href="#";
+  rsvpBtn.addEventListener('click', e=>{ e.preventDefault(); alert('Pronto habilitaremos la confirmación de asistencia.'); });
+}
+
+/* Regalo */
+const giftList = document.getElementById('giftList');
+CONFIG.giftSuggestions.forEach(g=>{
+  const span = document.createElement('span'); span.className='gift-chip'; span.textContent = g;
+  giftList.appendChild(span);
+});
+const giftBtn = document.getElementById('giftBtn');
+if(CONFIG.giftRegistryLink){ giftBtn.href = CONFIG.giftRegistryLink; giftBtn.style.display='inline-block'; }
+
+/* Countdown en vivo */
+const target = new Date(CONFIG.eventDateISO).getTime();
+function tick(){
+  const now = Date.now();
+  let diff = Math.max(0, target - now);
+  const d = Math.floor(diff/(1000*60*60*24)); diff -= d*(1000*60*60*24);
+  const h = Math.floor(diff/(1000*60*60)); diff -= h*(1000*60*60);
+  const m = Math.floor(diff/(1000*60)); diff -= m*(1000*60);
+  const s = Math.floor(diff/1000);
+  document.getElementById('cd-d').textContent = String(d).padStart(2,'0');
+  document.getElementById('cd-h').textContent = String(h).padStart(2,'0');
+  document.getElementById('cd-m').textContent = String(m).padStart(2,'0');
+  document.getElementById('cd-s').textContent = String(s).padStart(2,'0');
+}
+tick(); setInterval(tick, 1000);
+
+/* Envelope open */
+const envelope = document.getElementById('envelope');
+const cover = document.getElementById('cover');
+const content = document.getElementById('content');
+envelope.addEventListener('click', ()=>{
+  envelope.classList.add('opening');
+  setTimeout(()=>{
+    cover.classList.add('hidden');
+    content.classList.add('show');
+    window.scrollTo({top:0, behavior:'instant'});
+  }, 480);
+});
+
+/* Reproductor */
+const playBtn = document.getElementById('playBtn');
+const audio = document.getElementById('bgAudio');
+playBtn.addEventListener('click', ()=>{
+  if(audio.paused){
+    const playPromise = audio.play();
+    if(playPromise && playPromise.then){
+      playPromise.then(()=>{ playBtn.textContent='❚❚'; })
+        .catch(()=>{ alert('Tu navegador bloqueó la reproducción automática. Toca de nuevo el botón de play.'); });
+    } else {
+      playBtn.textContent='❚❚';
+    }
+  } else {
+    audio.pause(); playBtn.textContent='►';
+  }
+});
+
+/* Decoración: fila de copos de nieve, alternando grande/pequeño, azules */
+function snowflakeSVG(color, size){
+  let arms = '';
+  for(let i=0;i<6;i++){
+    const angle = i*60;
+    arms += `<g transform="rotate(${angle} 20 20)">
+      <line x1="20" y1="20" x2="20" y2="4" stroke="${color}" stroke-width="2" stroke-linecap="round"/>
+      <line x1="20" y1="10" x2="15" y2="6.5" stroke="${color}" stroke-width="1.6" stroke-linecap="round"/>
+      <line x1="20" y1="10" x2="25" y2="6.5" stroke="${color}" stroke-width="1.6" stroke-linecap="round"/>
+    </g>`;
+  }
+  return `<svg viewBox="0 0 40 40" width="${size}" height="${size}">${arms}<circle cx="20" cy="20" r="1.7" fill="${color}"/></svg>`;
+}
+function fillGrass(el, n){
+  if(!el) return;
+  const bigColor = 'var(--blue-deep)'.startsWith('var') ? '#5F86A8' : '#5F86A8';
+  const smallColor = '#AECBE6';
+  let html='';
+  for(let i=0;i<n;i++){
+    const isBig = i % 2 === 0; /* empieza y termina en grande (n impar) */
+    const size = isBig ? 26 : 15;
+    const color = isBig ? bigColor : smallColor;
+    html += snowflakeSVG(color, size);
+  }
+  el.innerHTML = html;
+}
+fillGrass(document.getElementById('grassBottom'), 9);
+fillGrass(document.getElementById('grassMid'), 7);
+</script>
+</body>
+</html>
