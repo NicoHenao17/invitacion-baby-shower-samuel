@@ -315,11 +315,6 @@
     box-shadow:0 3px 6px rgba(0,0,0,.06);
   }
   .block:nth-child(even){ transform: translateY(-4px); color:var(--beige-dark); }
-  .gift-list{ display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin: 6px 0 24px; }
-  .gift-chip{
-    background:var(--cream-2); border:1px solid rgba(185,155,110,.4); color:var(--ink-soft);
-    font-size:12.5px; padding:8px 14px; border-radius:20px;
-  }
 
   /* --- rsvp arch --- */
   #rsvp{ padding:0; }
@@ -475,9 +470,7 @@
         <img class="gift-penguin" id="imgGift" src="assets/penguin.webp" alt="Pingüino">
         <div class="blocks" id="nameBlocks"></div>
       </div>
-      <p class="body-text">Tu presencia será el regalo más valioso. Pero si deseas tener un detalle especial con nuestra familia, aquí tienes algunas ideas de referencia.</p>
-      <div class="gift-list" id="giftList"></div>
-      <p class="body-text">Si no sabes qué regalarnos, aquí te dejamos una lista de regalos sugeridos. Aun así, si prefieres elegir algo distinto a tu consideración, no es necesario basarte en la lista.</p>
+      <p class="body-text">Tu presencia será el regalo más valioso para nosotros. Sin embargo, si deseas tener un detalle especial con nuestra familia y no sabes qué elegir, te compartimos una lista de regalos sugeridos como referencia. Si prefieres obsequiarnos algo diferente, siéntete con total libertad de hacerlo; y por favor agrégalo a la lista con tu nombre.</p>
       <a class="btn outline" id="giftBtn" href="#" target="_blank" rel="noopener" style="display:none;">Ver lista de regalos sugeridos</a>
     </section>
 
@@ -531,7 +524,6 @@ const CONFIG = {
   rsvpDeadline: "9 de agosto de 2026",
   whatsappPapa: "573118692047",
   whatsappMama: "573202624989",
-  giftSuggestions: ["Pañales talla RN", "Toallitas húmedas", "Body manga larga", "Mantas"],
   giftRegistryLink: "https://docs.google.com/spreadsheets/d/1Syno0o1tHUk5P1_dKQZX-98-rOoMPkJrGODUcqWLqtE/edit?usp=sharing"
 };
 
@@ -587,11 +579,6 @@ wireRsvpButton('rsvpBtnPapa', CONFIG.whatsappPapa);
 wireRsvpButton('rsvpBtnMama', CONFIG.whatsappMama);
 
 /* Regalo */
-const giftList = document.getElementById('giftList');
-CONFIG.giftSuggestions.forEach(g=>{
-  const span = document.createElement('span'); span.className='gift-chip'; span.textContent = g;
-  giftList.appendChild(span);
-});
 const giftBtn = document.getElementById('giftBtn');
 if(CONFIG.giftRegistryLink){ giftBtn.href = CONFIG.giftRegistryLink; giftBtn.style.display='inline-block'; }
 
