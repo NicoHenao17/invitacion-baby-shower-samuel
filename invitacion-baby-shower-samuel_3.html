@@ -121,16 +121,15 @@
 
   .bring-badge{
     display:inline-flex; align-items:center; gap:8px;
-    margin:0 0 20px; padding:9px 20px;
+    margin:0 0 20px; padding:9px 22px;
     border-radius:30px; color:#fff;
     font-size:12px; font-weight:600; letter-spacing:.04em;
     box-shadow:0 8px 16px rgba(120,140,160,.3);
     animation: hintPulse 2.4s ease-in-out infinite;
+    background: linear-gradient(135deg, var(--gold), var(--blue-dark));
   }
   .bring-badge .bring-icon{ font-size:16px; line-height:1; }
-  .bring-badge .bring-text b{ text-transform:uppercase; letter-spacing:.06em; }
-  .bring-badge.type-panales{ background:linear-gradient(135deg, var(--gold), var(--beige-dark)); }
-  .bring-badge.type-panitos{ background:linear-gradient(135deg, var(--blue-dark), var(--blue-deep)); }
+  .bring-badge b{ text-transform:uppercase; letter-spacing:.06em; }
 
   .envelope-zone{
     position:relative; display:flex; flex-direction:column; align-items:center;
@@ -353,9 +352,10 @@
       <div class="cover-date-line">
         <span id="coverWeekday">DOMINGO</span><span class="sep">·</span><b id="coverDateShort">16 DE AGOSTO</b><span class="sep">·</span><span id="coverTime">3:00 PM</span>
       </div>
-      <div class="bring-badge type-panales" id="bringBadge">
-        <span class="bring-icon" id="bringIcon">🧷</span>
-        <span class="bring-text">Te toca traer <b id="bringType">Pañales</b></span>
+      <div class="bring-badge">
+        <span class="bring-icon">🧷</span>
+        <span class="bring-text">Trae <b>Pañales</b> o <b>Pañitos</b></span>
+        <span class="bring-icon">🧴</span>
       </div>
       <div class="envelope-zone">
         <div class="envelope" id="envelope">
@@ -516,21 +516,6 @@ document.getElementById('familyName').textContent = familia.toUpperCase();
 document.getElementById('passBadge').textContent = pases;
 document.getElementById('passText').textContent = pases;
 document.title = "Baby Shower de " + CONFIG.babyName + " · " + familia;
-
-/* Qué le toca traer a esta familia: ?trae=panales o ?trae=panitos */
-const traeRaw = (params.get('trae') || '').toLowerCase();
-const esPanitos = traeRaw.startsWith('pani') || traeRaw.startsWith('toal');
-const bringBadge = document.getElementById('bringBadge');
-const bringType = document.getElementById('bringType');
-const bringIcon = document.getElementById('bringIcon');
-if(esPanitos){
-  bringBadge.classList.remove('type-panales');
-  bringBadge.classList.add('type-panitos');
-  bringIcon.textContent = '🧴';
-  bringType.textContent = 'Pañitos';
-} else {
-  bringType.textContent = 'Pañales';
-}
 
 /* Fecha */
 document.getElementById('coverWeekday').textContent = CONFIG.weekdayShort;
