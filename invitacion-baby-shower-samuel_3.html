@@ -308,6 +308,7 @@
   .deadline-line{ font-size:13.5px; margin:16px 0 22px; color:#fff; }
   .deadline-line b{ font-weight:600; }
   .rsvp-arch .btn{ background:#fff; color:var(--blue-deep) !important; }
+  .rsvp-buttons{ display:flex; flex-direction:column; align-items:center; gap:12px; }
 
   /* --- closing --- */
   #closing{ padding-bottom:74px; padding-top:60px; }
@@ -452,7 +453,10 @@
         <div class="pass-badge" id="passBadge">2</div>
         <div class="pass-caption">Invitación válida por <span id="passText">2</span> pases</div>
         <div class="deadline-line">Por favor confírmanos tu asistencia antes del <b id="rsvpDeadline">9 de agosto de 2026</b>.</div>
-        <a class="btn" id="rsvpBtn" href="#" target="_blank" rel="noopener">Confirmar aquí</a>
+        <div class="rsvp-buttons">
+          <a class="btn" id="rsvpBtnPapa" href="#" target="_blank" rel="noopener">Confirmar al papito</a>
+          <a class="btn" id="rsvpBtnMama" href="#" target="_blank" rel="noopener">Confirmar a la mamita</a>
+        </div>
       </div>
     </section>
 
@@ -489,7 +493,8 @@ const CONFIG = {
   address: "Conjunto Granate",
   mapsLink: "https://maps.app.goo.gl/1wJRxneWj6WejTtU8?g_st=ic",
   rsvpDeadline: "9 de agosto de 2026",
-  whatsappNumber: "",
+  whatsappPapa: "573118692047",
+  whatsappMama: "573202624989",
   giftSuggestions: ["Pañales talla RN", "Toallitas húmedas", "Body manga larga", "Mantas"],
   giftRegistryLink: ""
 };
@@ -530,15 +535,20 @@ const mapsBtn = document.getElementById('mapsBtn');
 if(CONFIG.mapsLink){ mapsBtn.href = CONFIG.mapsLink; }
 else { mapsBtn.href="#"; mapsBtn.addEventListener('click', e=>{ e.preventDefault(); alert('La ubicación se confirmará pronto.'); }); }
 
-/* RSVP -> WhatsApp */
-const rsvpBtn = document.getElementById('rsvpBtn');
-if(CONFIG.whatsappNumber){
-  const msg = encodeURIComponent(`¡Hola! Confirmo mi asistencia al Baby Shower de ${CONFIG.babyName}. Familia: ${familia} - Pases: ${pases}`);
-  rsvpBtn.href = `https://wa.me/${CONFIG.whatsappNumber}?text=${msg}`;
-} else {
-  rsvpBtn.href="#";
-  rsvpBtn.addEventListener('click', e=>{ e.preventDefault(); alert('Pronto habilitaremos la confirmación de asistencia.'); });
+/* RSVP -> WhatsApp (papá y mamá) */
+function wireRsvpButton(id, number){
+  const btn = document.getElementById(id);
+  if(!btn) return;
+  if(number){
+    const msg = encodeURIComponent(`¡Hola! Confirmo mi asistencia al Baby Shower de ${CONFIG.babyName}. Familia: ${familia} - Pases: ${pases}`);
+    btn.href = `https://wa.me/${number}?text=${msg}`;
+  } else {
+    btn.href = "#";
+    btn.addEventListener('click', e=>{ e.preventDefault(); alert('Pronto habilitaremos la confirmación de asistencia.'); });
+  }
 }
+wireRsvpButton('rsvpBtnPapa', CONFIG.whatsappPapa);
+wireRsvpButton('rsvpBtnMama', CONFIG.whatsappMama);
 
 /* Regalo */
 const giftList = document.getElementById('giftList');
