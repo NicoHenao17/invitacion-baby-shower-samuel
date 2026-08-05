@@ -27,6 +27,7 @@ async function main() {
   outSheet.columns = [
     { header: 'Familia', key: 'familia', width: 28 },
     { header: 'Pases', key: 'pases', width: 8 },
+    { header: 'Trae', key: 'trae', width: 12 },
     { header: 'Link Invitación', key: 'link', width: 70 },
     { header: 'Link para enviar por WhatsApp', key: 'wa', width: 70 },
   ];
@@ -38,9 +39,16 @@ async function main() {
     const familia = String(row.getCell(1).value || '').trim();
     const pases = String(row.getCell(2).value || '').trim();
     const whatsapp = String(row.getCell(3).value || '').trim();
+    const traeCell = String(row.getCell(4).value || '').trim().toLowerCase();
     if (!familia) return;
 
-    const link = `${BASE_URL}?familia=${encodeURIComponent(familia)}&pases=${encodeURIComponent(pases || '2')}`;
+    /* Si no se especifica, alterna Pañales/Pañitos para repartir parejo entre familias */
+    let trae = traeCell.startsWith('pani') || traeCell.startsWith('toal') ? 'panitos'
+      : traeCell.startsWith('pañ') && traeCell.includes('l') ? 'panales'
+      : (count % 2 === 0 ? 'panales' : 'panitos');
+    const traeLabel = trae === 'panitos' ? 'Pañitos' : 'Pañales';
+
+    const link = `${BASE_URL}?familia=${encodeURIComponent(familia)}&pases=${encodeURIComponent(pases || '2')}&trae=${trae}`;
 
     let wa = '';
     if (whatsapp) {
@@ -48,7 +56,7 @@ async function main() {
       wa = `https://wa.me/${whatsapp.replace(/\D/g, '')}?text=${msg}`;
     }
 
-    outSheet.addRow({ familia, pases: pases || '2', link, wa });
+    outSheet.addRow({ familia, pases: pases || '2', trae: traeLabel, link, wa });
     count++;
   });
 
