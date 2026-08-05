@@ -384,12 +384,12 @@
         <img class="peng" id="imgBalloon" src="assets/penguin.webp" alt="Pingüino con globos">
         <span class="baby-half">BY</span>
       </div>
-      <p class="body-text">Nuestro corazón late con más fuerza porque muy pronto conoceremos al milagro que Dios nos regaló.</p>
-      <p class="body-text">Con inmensa alegría queremos invitarte a celebrar la dulce espera de nuestro amado <b id="msgBabyName1">Samuel</b> y compartir con nosotros un momento lleno de amor, ilusión y felicidad.</p>
+      <p class="body-text">Con inmensa alegría queremos invitarte a celebrar la espera de nuestro amado <b id="msgBabyName1">Samuel</b> y compartir con nosotros un momento lleno de amor, ilusión y felicidad.</p>
+      <p class="body-text">Nuestro corazón late con más fuerza porque muy pronto tendremos entre nuestros brazos al pequeño que tanto hemos esperado.</p>
 
       <audio id="bgAudio" loop preload="none" playsinline src="assets/song.mp3"></audio>
 
-      <p class="body-text">Con mucho amor estamos contando los días para tener en nuestros brazos a <span id="msgBabyName2">Samuel</span>.</p>
+      <p class="body-text">Con mucho amor estamos contando los días para conocerlo.</p>
       <div class="parents-eyebrow">Mis papitos</div>
       <div class="parents-names">Nicolas &amp; Carol</div>
     </section>
@@ -497,7 +497,7 @@ const CONFIG = {
 /* Nombre del bebé en todos los textos */
 document.getElementById('coverBabyName').textContent = CONFIG.babyName.toUpperCase();
 document.getElementById('coverBabyLastname').textContent = CONFIG.babyLastName;
-['msgBabyName1','msgBabyName2','msgBabyName3','msgBabyName4'].forEach(id=>{
+['msgBabyName1','msgBabyName3','msgBabyName4'].forEach(id=>{
   document.getElementById(id).textContent = CONFIG.babyName;
 });
 /* Bloques de madera con el nombre */
